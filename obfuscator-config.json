@@ -1,0 +1,25 @@
+{
+    "compact": true,
+    "controlFlowFlattening": true,
+    "controlFlowFlatteningThreshold": 1,
+    "deadCodeInjection": true,
+    "deadCodeInjectionThreshold": 1,
+    "debugProtection": true,
+    "debugProtectionInterval": 2000,
+    "disableConsoleOutput": false,
+    "identifierNamesGenerator": "hexadecimal",
+    "selfDefending": true,
+    "splitStrings": true,
+    "stringArray": true,
+    "stringArrayEncoding": ["base64"],
+    "stringArrayThreshold": 1,
+    "transformObjectKeys": true,
+    "unicodeEscapeSequence": false
+}
+
+
+# Offusca il gestore licenze
+npx javascript-obfuscator licenseManager.js --config obfuscator-config.json --output licenseManager.prod.js
+
+# Offusca il file principale del sito
+npx javascript-obfuscator app.js --config obfuscator-config.json --output app.prod.js
