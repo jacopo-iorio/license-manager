@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Gestore Licenze Web</title>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-dark mb-4">
+        <div class="container">
+            <span class="navbar-brand">Admin License Manager</span>
+            <a href="/logout" class="btn btn-outline-danger btn-sm">Esci</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card p-4 mb-4 shadow-sm">
+            <h4>Registra Nuovo Cliente</h4>
+            <form action="/add" method="POST" class="row g-3">
+                <div class="col-md-5">
+                    <input type="email" name="email" class="form-control" placeholder="Email Cliente" required>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" name="domain" class="form-control" placeholder="Dominio (es. miosito.it)" required>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Registra</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card shadow-sm">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Dominio</th>
+                        <th>Stato</th>
+                        <th class="text-end">Azioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in clients %}
+                    <tr>
+                        <td>{{ c.id }}</td>
+                        <td>{{ c.email }}</td>
+                        <td><code>{{ c.domain }}</code></td>
+                        <td>
+                            <span class="badge {{ 'bg-success' if c.status == 'ACTIVE' else 'bg-danger' }}">
+                                {{ c.status }}
+                            </span>
+                        </td>
+                        <td class="text-end">
+                            <a href="/toggle/{{ c.id }}" class="btn btn-sm {{ 'btn-warning' if c.status == 'ACTIVE' else 'btn-success' }}">
+                                {{ 'STOP' if c.status == 'ACTIVE' else 'RIATTIVA' }}
+                            </a>
+                            <a href="/download/{{ c.id }}" class="btn btn-sm btn-info">📥 Scarica .lic</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
